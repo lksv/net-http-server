@@ -104,8 +104,10 @@ module Rack
           env['rack.url_scheme'] = request_uri[:scheme].to_s
         end
 
-        env['SERVER_NAME']     = local_address.getnameinfo[0]
-        env['SERVER_PORT']     = local_address.ip_port.to_s
+        # Workaround of JRUBY-3725
+        #env['SERVER_NAME']     = local_address.getnameinfo[0]
+        #env['SERVER_PORT']     = local_address.ip_port.to_s
+
         env['SERVER_PROTOCOL'] = "HTTP/#{request[:http_version]}"
 
         env['REMOTE_ADDR'] = remote_address.ip_address
